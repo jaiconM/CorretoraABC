@@ -1,11 +1,11 @@
-﻿@model CorretoraABC.Web.Models.HomeViewModel
+﻿@model IEnumerable<CorretoraABC.Web.Models.HomeViewModel>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h4 class="display-4">Relação de Dados do Período:</h4>
+    <h4 class="display-4">Relação de Dados do Período</h4>
 
 <table class="table">
     <thead>
@@ -38,31 +38,31 @@
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < Model.MenorQuantidade; i++) {
+        @foreach (var model in Model) {
         <tr>
             <td>
-                @Html.Raw(Model.Cotacoes.ElementAt(i).Data.ToString("dd-MM-yyyy"))
+                @Html.Raw(model.Data.ToString("dd-MM-yyyy"))
             </td>
             <td>
-                @Html.Raw(Model.Cotacoes.ElementAt(i).Fechamento.ToString("#,##0.00"))
+                @Html.Raw(model.FechamentoDoDia.ToString("#,##0.00"))
             </td>
             <td>
-                @Html.Raw(Model.ValoresEma9.ElementAt(i).Valor.ToString("#,##0.00"))
+                @Html.Raw(model.Ema9.ToString("#,##0.00"))
             </td>
             <td>
-                @Html.Raw(Model.ValoresEma12.ElementAt(i).Valor.ToString("#,##0.00"))
+                @Html.Raw(model.Ema12.ToString("#,##0.00"))
             </td>
             <td>
-                @Html.Raw(Model.ValoresEma26.ElementAt(i).Valor.ToString("#,##0.00"))
+                @Html.Raw(model.Ema26.ToString("#,##0.00"))
             </td>
             <td>
-                @Html.Raw(Model.ValoresMacd.ElementAt(i).Valor.ToString("#,##0.00"))
+                @Html.Raw(model.Macd.ToString("#,##0.00"))
             </td>
             <td>
-                @Html.Raw(Model.ValoresMacd.ElementAt(i).ValorSignal.ToString("#,##0.00"))
+                @Html.Raw(model.MacdSignal.ToString("#,##0.00"))
             </td>
             <td>
-                @Html.Raw(Model.ValoresMacd.ElementAt(i).ValorHistorico.ToString("#,##0.00"))
+                @Html.Raw(model.MacdHistograma.ToString("#,##0.00"))
             </td>
         </tr>
 }

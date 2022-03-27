@@ -1,0 +1,127 @@
+﻿@model GraficoViewModel
+
+@{
+    ViewData["Title"] = "Gráfico";
+}
+<html>
+<head>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+    <script src="https://code.highcharts.com/stock/indicators/ema.js"></script>
+    <script src="https://code.highcharts.com/stock/indicators/macd.js"></script>
+</head>
+<body>
+    <h4 class="display-4">Gráfico</h4>
+    <div id="container" style="height: 400px; min-width: 310px"></div>
+    <div id="container2" style="height: 400px; min-width: 310px"></div>
+    <script type="text/javascript">
+                Highcharts.getJSON('https://www.highcharts.com/samples/data/aapl-ohlc.json', function (data) {
+                    var data2 = '@Model.JsonData';
+                    Highcharts.stockChart('container', {
+
+                        rangeSelector: {
+                            selected: 1
+                        },
+
+                        title: {
+                            text: 'EMA - MAGA LU'
+                        },
+
+                        legend: {
+                            enabled: true
+                        },
+
+                        plotOptions: {
+                            series: {
+                                showInLegend: true
+                            }
+                        },
+
+                        yAxis: [{
+                            height: '50%'
+                        }, {
+                            top: '60%',
+                            height: '40%'
+                        }],
+
+                        series: [
+                            {
+                                type: 'ohlc',
+                                id: 'aapl',
+                                name: 'Valor Fech.',
+                                data: data
+                            }, 
+                            {
+                                type: 'ema',
+                                linkedTo: 'aapl',
+                                params: {
+                                  period: 9
+                                }
+                            },
+                            {
+                                type: 'ema',
+                                linkedTo: 'aapl',
+                                params: {
+                                  period: 12
+                                }
+                            },
+                            {
+                                type: 'ema',
+                                linkedTo: 'aapl',
+                                params: {
+                                  period: 26
+                                }
+                            }
+                        ]
+                    });
+                    Highcharts.stockChart('container2', {
+
+                        rangeSelector: {
+                            selected: 1
+                        },
+
+                        title: {
+                            text: 'MACD - MAGA LU'
+                        },
+
+                        legend: {
+                            enabled: true
+                        },
+
+                        plotOptions: {
+                            series: {
+                                showInLegend: true
+                            }
+                        },
+
+                        yAxis: [{
+                            height: '40%'
+                        }, {
+                            top: '60%',
+                            height: '40%'
+                        }],
+
+                        series: [{
+                                type: 'line',
+                                id: 'aapl',
+                                name: 'Valor Fech.',
+                                data: data
+                            }, 
+                            {
+                                yAxis: 1,
+                                type: 'macd',
+                                linkedTo: 'aapl',
+                                params: {
+                                    shortPeriod: 12,
+                                    longPeriod: 26,
+                                    signalPeriod: 9,
+                                    period: 26
+                                }
+                        }]
+                    });
+                });
+    </script>
+</body>
+</html>

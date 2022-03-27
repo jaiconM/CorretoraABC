@@ -1,11 +1,5 @@
 ﻿using CorretoraABC.Domain.Core.Entidades;
 using CorretoraABC.Domain.Core.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TALib;
 
 namespace CorretoraABC.Domain.Core.Services
 {
@@ -16,7 +10,7 @@ namespace CorretoraABC.Domain.Core.Services
         {
             var valoresMacd = new List<ValorMacd>();
             var fechamentos = cotacoes.Select(c => c.Fechamento).ToArray();
-            
+
             var macds = new decimal[fechamentos.Length];
             var macdSignals = new decimal[fechamentos.Length];
             var macdHistories = new decimal[fechamentos.Length];
