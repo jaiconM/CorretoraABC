@@ -17,6 +17,7 @@ namespace CorretoraABC.Web.Config
             services.AddSingleton<ICotacaoService, CotacaoService>();
             services.AddSingleton<IAcaoRepository, AcaoRepository>();
             services.AddSingleton<ICotacaoRepository, CotacaoRepository>();
+            services.AddSingleton<ICalculadoraIndicadoresFinanceiros, CalculadoraIndicadoresFinanceiros>();
         }
     }
 }

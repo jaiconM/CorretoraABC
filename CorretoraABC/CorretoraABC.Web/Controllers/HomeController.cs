@@ -1,4 +1,6 @@
-﻿using CorretoraABC.Web.Models;
+﻿using CorretoraABC.App.Interfaces;
+using CorretoraABC.Domain.Core.Interfaces.Services;
+using CorretoraABC.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,21 +8,29 @@ namespace CorretoraABC.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IAcaoApp _acaoApp;
+        private readonly ICalculadoraIndicadoresFinanceiros _calculadoraIndicadoresFinanceiros;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IAcaoApp acaoApp, ICalculadoraIndicadoresFinanceiros calculadoraIndicadoresFinanceiros)
         {
-            _logger = logger;
+            _acaoApp = acaoApp;
+            _calculadoraIndicadoresFinanceiros = calculadoraIndicadoresFinanceiros;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = MonteViewModel();
+            return View(viewModel);
         }
 
-        public IActionResult Privacy()
+        private HomeViewModel MonteViewModel()
         {
-            return View();
+            var cotacoes = _acaoApp.ListarTodos()?.FirstOrDefault()?.Cotacoes.OrderBy(cotacao => cotacao.Data);
+            var valoresEma9 = _calculadoraIndicadoresFinanceiros.CalculeEma(cotacoes, 9);
+            var valoresEma12 = _calculadoraIndicadoresFinanceiros.CalculeEma(cotacoes, 12);
+            var valoresEma26 = _calculadoraIndicadoresFinanceiros.CalculeEma(cotacoes, 26);
+            var valoresMacd = _calculadoraIndicadoresFinanceiros.CalculeMacd(cotacoes);
+            return new HomeViewModel(cotacoes, valoresEma9, valoresEma12, valoresEma26, valoresMacd);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
