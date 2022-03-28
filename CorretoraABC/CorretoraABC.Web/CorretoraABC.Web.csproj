@@ -25,4 +25,8 @@
     <ProjectReference Include="..\CorretoraABC.Domain.Core\CorretoraABC.Domain.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\" />
+  </ItemGroup>
+
 </Project>

@@ -29,7 +29,6 @@ namespace CorretoraABC.Web.Controllers
             var cotacoes = acao?.Cotacoes.OrderBy(cotacao => cotacao.Data).ToList();
             var dadosParaOGrafico = _dadosFinanceirosService.MonteDadosDeEMAeMACDParaListagem(cotacoes);
             return MapeieParaViewModel(dadosParaOGrafico);
-            return new List<HomeViewModel>();
         }
 
         private IEnumerable<HomeViewModel> MapeieParaViewModel(DadosEMAeMACDparaGrafico dadosParaOGrafico)

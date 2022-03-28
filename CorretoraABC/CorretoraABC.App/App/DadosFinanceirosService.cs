@@ -1,6 +1,7 @@
 ﻿using CorretoraABC.App.Interfaces;
 using CorretoraABC.Domain.Core.Entidades;
 using CorretoraABC.Domain.Core.Interfaces.Services;
+using System.Text.Json;
 
 namespace CorretoraABC.App.App
 {
@@ -25,18 +26,18 @@ namespace CorretoraABC.App.App
 
         public string MonteDadosDeEMAeMACDParaGrafico(List<Cotacao> cotacoes)
         {
-            var dados = "[";
-            foreach (var cotacao in cotacoes)
+            var dados = new List<List<double>>();
+            for (int i = 0; i < cotacoes.Count; i++)
             {
-                var dado = $"[{cotacao.Data.Ticks},{Formate(cotacao.Abertura)},{Formate(cotacao.Alta)},{Formate(cotacao.Baixa)},{Formate(cotacao.Fechamento)}],";
-                dados += dado;
+                var dado = new List<double>();
+                dado.Add(cotacoes.ElementAt(i).Data.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds);
+                dado.Add((double)cotacoes.ElementAt(i).Abertura);
+                dado.Add((double)cotacoes.ElementAt(i).Alta);
+                dado.Add((double)cotacoes.ElementAt(i).Baixa);
+                dado.Add((double)cotacoes.ElementAt(i).Fechamento);
+                dados.Add(dado);
             }
-            return $"{dados.Substring(0, dados.Length - 1)}]";
-        }
-
-        private static string Formate(decimal valor)
-        {
-            return valor.ToString("#0.00").Replace(',', '.');
+            return JsonSerializer.Serialize(dados);
         }
     }
 }

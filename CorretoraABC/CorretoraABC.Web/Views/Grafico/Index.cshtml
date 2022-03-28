@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Gráfico";
 }
+
 <html>
 <head>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
@@ -17,8 +18,7 @@
     <div id="container" style="height: 400px; min-width: 310px"></div>
     <div id="container2" style="height: 400px; min-width: 310px"></div>
     <script type="text/javascript">
-                Highcharts.getJSON('https://www.highcharts.com/samples/data/aapl-ohlc.json', function (data) {
-                    var data2 = '@Model.JsonData';
+                Highcharts.getJSON('@Model.FilePath', function (data) {
                     Highcharts.stockChart('container', {
 
                         rangeSelector: {
@@ -35,6 +35,7 @@
 
                         plotOptions: {
                             series: {
+                                turboThreshold: 0,
                                 showInLegend: true
                             }
                         },
@@ -92,6 +93,7 @@
 
                         plotOptions: {
                             series: {
+                                turboThreshold: 0,
                                 showInLegend: true
                             }
                         },
