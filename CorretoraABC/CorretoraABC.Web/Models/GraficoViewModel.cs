@@ -4,5 +4,6 @@ namespace CorretoraABC.Web.Models
     {
         public string JsonData { get; set; }
         public string FilePath { get; set; }
+        public string Acao { get; set; }
     }
 }

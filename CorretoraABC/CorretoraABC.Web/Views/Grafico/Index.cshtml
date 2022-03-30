@@ -15,18 +15,18 @@
 </head>
 <body>
     <h4 class="display-4">Gráfico</h4>
-    <div id="container" style="height: 400px; min-width: 310px"></div>
-    <div id="container2" style="height: 400px; min-width: 310px"></div>
+    <div id="containerEma" style="height: 500px; min-width: 310px"></div>
+    <div id="containerMacd" style="height: 500px; min-width: 310px"></div>
     <script type="text/javascript">
                 Highcharts.getJSON('@Model.FilePath', function (data) {
-                    Highcharts.stockChart('container', {
+                    Highcharts.stockChart('containerEma', {
 
                         rangeSelector: {
                             selected: 1
                         },
 
                         title: {
-                            text: 'EMA - MAGA LU'
+                            text: 'EMA - ' + '@Model.Acao'
                         },
 
                         legend: {
@@ -50,41 +50,41 @@
                         series: [
                             {
                                 type: 'ohlc',
-                                id: 'aapl',
-                                name: 'Valor Fech.',
+                                id: 'xpto',
+                                name: 'Cotação',
                                 data: data
                             }, 
                             {
                                 type: 'ema',
-                                linkedTo: 'aapl',
+                                linkedTo: 'xpto',
                                 params: {
                                   period: 9
                                 }
                             },
                             {
                                 type: 'ema',
-                                linkedTo: 'aapl',
+                                linkedTo: 'xpto',
                                 params: {
                                   period: 12
                                 }
                             },
                             {
                                 type: 'ema',
-                                linkedTo: 'aapl',
+                                linkedTo: 'xpto',
                                 params: {
                                   period: 26
                                 }
                             }
                         ]
                     });
-                    Highcharts.stockChart('container2', {
+                    Highcharts.stockChart('containerMacd', {
 
                         rangeSelector: {
                             selected: 1
                         },
 
                         title: {
-                            text: 'MACD - MAGA LU'
+                            text: 'MACD - ' + '@Model.Acao'
                         },
 
                         legend: {
@@ -107,14 +107,14 @@
 
                         series: [{
                                 type: 'ohlc',
-                                id: 'aapl',
-                                name: 'Valor Abert.',
+                                id: 'xpto',
+                                name: 'Cotação',
                                 data: data
                             }, 
                             {
                                 yAxis: 1,
                                 type: 'macd',
-                                linkedTo: 'aapl'
+                                linkedTo: 'xpto'
                         }]
                     });
                 });

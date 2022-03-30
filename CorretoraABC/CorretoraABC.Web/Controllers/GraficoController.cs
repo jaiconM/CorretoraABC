@@ -23,7 +23,7 @@ namespace CorretoraABC.Web.Controllers
             var acao = _acaoApp.ListarTodos()?.FirstOrDefault();
             var cotacoes = acao?.Cotacoes.OrderBy(cotacao => cotacao.Data).ToList();
             var viewModel = CrieViewModel(cotacoes);
-
+            viewModel.Acao = acao.Sigla;
             return View(viewModel);
         }
 
