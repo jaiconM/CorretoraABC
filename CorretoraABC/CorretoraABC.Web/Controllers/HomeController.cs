@@ -34,6 +34,7 @@ namespace CorretoraABC.Web.Controllers
         private IEnumerable<HomeViewModel> MapeieParaViewModel(DadosEMAeMACDparaGrafico dadosParaOGrafico)
         {
             var viewModels = new List<HomeViewModel>();
+
             for (int i = 0; i < dadosParaOGrafico.MenorQuantidade; i++)
             {
                 viewModels.Add(
@@ -50,7 +51,8 @@ namespace CorretoraABC.Web.Controllers
                     }
                 );
             }
-            return viewModels;
+
+            return viewModels.OrderByDescending(vm => vm.Data);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -10,7 +10,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th class="data">
                 Data
             </th>
             <th>
@@ -34,13 +34,12 @@
             <th>
                 MACD Histograma
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var model in Model) {
         <tr>
-            <td>
+            <td class="data">
                 @Html.Raw(model.Data.ToString("dd-MM-yyyy"))
             </td>
             <td>
@@ -70,3 +69,42 @@
 </table>
 
 </div>
+
+<style>
+    table, td {
+        border-collapse: collapse;
+    }
+
+    thead {
+        display: table;
+        width: calc(100% - 17px);
+    }
+
+    tbody {
+        display: block;
+        max-height: 600px;
+        overflow-y: scroll;
+    }
+
+    th, td {
+        width: 12.5%;
+        padding: 5px;
+        word-break: break-all;
+    }
+
+    .data {
+        width: 9%;
+    }
+
+    tr {
+        display: table;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    td {
+        text-align: center;
+        border-bottom: none;
+        border-left: none;
+    }
+</style>
